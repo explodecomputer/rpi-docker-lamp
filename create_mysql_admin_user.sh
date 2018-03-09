@@ -30,10 +30,18 @@ echo "MySQL user 'root' has no password but only allows local connections"
 echo "========================================================================"
 
 
+echo "=> Downloading"
+
 wget -O explodecomputer.sql "https://www.dropbox.com/s/lknzahljfqo2q44/explodecomputer.sql?dl=1"
 
-
-echo "DROP DATABASE IF EXISTS explodecomputer; CREATE DATABASE explodecomputer; GRANT ALL PRIVILEGES ON explodecomputer.* To 'gib'@'localhost' IDENTIFIED BY 'Odeadfsws123qwe';" | mysql -u root -p
-mysql -u root -p explodecomputer < explodecomputer.sql
+echo "=> Done!"
+echo "=> Making user"
+mysql -uroot -e "DROP DATABASE IF EXISTS explodecomputer;"
+mysql -uroot -e "CREATE DATABASE explodecomputer;"
+mysql -uroot -e " GRANT ALL PRIVILEGES ON explodecomputer.* To 'gib'@'localhost' IDENTIFIED BY 'Odeadfsws123qwe';"
+echo "=> Done!"
+echo "=> Importing"
+mysql -uroot explodecomputer < explodecomputer.sql
+echo "=> Done!"
 
 mysqladmin -uroot shutdown
